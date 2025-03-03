@@ -1,0 +1,15 @@
+# Lagrange Interpolation
+
+## Overview
+Lagrange interpolation constructs a polynomial that passes through a given set of data points.
+
+## When to Use?
+- When you have **a small number of data points**.
+- When you need an explicit formula directly without step-by-step calculations.
+
+## Advantages
+✔ Provides a single polynomial expression.  
+✔ Easy to understand and implement.  
+
+## Formula
+P(x) = Σ ( f(xᵢ) * Lᵢ(x) ), where Lᵢ(x) are Lagrange basis polynomials.

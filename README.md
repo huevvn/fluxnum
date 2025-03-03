@@ -2,14 +2,14 @@
 
 FluxNum is a numerical analysis tool for interpolation, supporting Newton and Lagrange methods.
 
-## Features
+## Features ✨
 
 -   Newton Interpolation
 -   Lagrange Interpolation
 -   Quadratic Interpolation Support
 -   Command-line interface (CLI) for easy interaction
 
-## Installation
+## Installation 🔧
 
 1. Clone the repository:
 
@@ -30,15 +30,13 @@ FluxNum is a numerical analysis tool for interpolation, supporting Newton and La
     pip install -r requirements.txt
     ```
 
-## Usage
+## Running & Interacting ⚙️
 
 Run the application:
 
 ```sh
 python src/run.py
 ```
-
-### Interacting
 
 ```sh
 ╭───────────────────────╮

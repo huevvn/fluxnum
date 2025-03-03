@@ -4,15 +4,19 @@ from rich.console import Console
 from rich.progress import track
 from rich.panel import Panel
 
+from interpolation.lagrange import lagrange_interpolation
+from interpolation.newton import newton_interpolation
+
+
 # Initialize Console
 console = Console()
 
 def display_welcome():
-    """ The Welcome Message """
+    """ Displays the welcome message """
     console.print(Panel.fit("[bold cyan]Welcome to FluxNum ⚡️[/bold cyan]"))
 
 def get_user_selection():
-    """ Interpolation or Least Squares """
+    """ Ask the user to select the interpolation method """
     return questionary.select(
         "Choose a Method:",
         qmark="❯",
@@ -20,7 +24,7 @@ def get_user_selection():
     ).ask()
 
 def get_interpolation_method():
-    """ Lagrange / Newton """
+    """ Ask the user to select Lagrange or Newton method """
     method = questionary.select(
         "Choose an interpolation method:",
         qmark="❯",
@@ -32,7 +36,7 @@ def get_interpolation_method():
     return method
 
 def get_interpolation_degree():
-    """ Degree of interpolation """
+    """ Ask the user to select the degree of interpolation """
     degree_map = {"Linear": 1, "Quadratic": 2, "Bicubic": 3}
     degree_str = questionary.select(
         "Choose the Interpolation degree:",
@@ -64,26 +68,39 @@ def show_processing_animation():
     for _ in track(range(25), description="⏳ Processing...\n"):
         time.sleep(0.1)
 
-def display_results(method, degree, points, x_approx):
-    """ Final Results """
+def display_results(method, degree, points, x_approx, result):
+    """ Display final results in a structured format """
     console.print(Panel.fit(f"""
 📊 [bold red]Calculation Summary[/bold red]
 ✔ Method: [magenta]{method} Interpolation[/magenta]
 ✔ Degree: [green]{degree}[/green]
 ✔ Points: [white]{points}[/white]
-✔ Approximation: f([bold red]{x_approx}[/bold red]) = [black on cyan] f(x) [/black on cyan]
+✔ Approximation: f([bold red]{x_approx}[/bold red]) = [black on yellow] {result} [/black on yellow]
 """, title="FluxNum Results"))
 
-# Main Program Flow
-display_welcome()
-topic = get_user_selection()
+""" Main function to run the program """
+def main():
+    display_welcome()
+    topic = get_user_selection()
 
-if topic == "Interpolation":
-    method = get_interpolation_method()
-    degree = get_interpolation_degree()
-    points = collect_points(degree)
-    x_approx = get_approximation_x()
-    show_processing_animation()
-    display_results(method, degree, points, x_approx)
-else:
-    console.print("[red]🌀 Sorry, Least Squares is under development[/red]")
+    if topic == "Interpolation":
+        method = get_interpolation_method()
+        degree = get_interpolation_degree()
+        points = collect_points(degree)
+        x_approx = get_approximation_x()
+
+        show_processing_animation()
+
+        # Call the correct interpolation function
+        if method == "Lagrange":
+            result = lagrange_interpolation(points, x_approx)
+        else:
+            result = newton_interpolation(points, x_approx)
+
+        display_results(method, degree, points, x_approx, result)
+
+    else:
+        console.print("[blue]🌀 Sorry, Least Squares is under development[/blue]")
+
+if __name__ == "__main__":
+    main()

@@ -75,3 +75,11 @@ python src/run.py
 │                                                  │
 ╰──────────────────────────────────────────────────╯
 ```
+
+## Documentation 📚
+
+For a deeper understanding of the interpolation methods, check out the documentation:
+
+-   [Newton Interpolation](docs/newton_interpolation.txt)
+-   [Lagrange Interpolation](docs/lagrange_interpolation.txt)
+-   [Interpolation Comparison](docs/interpolation_comparison.txt)

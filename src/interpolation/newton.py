@@ -25,10 +25,9 @@ def newton_interpolation(points, x_approx):
 
 """ Visualizing Newton's Divided Differences """
 # points = [(0, -1), (1, 1), (2, 4)]
-# 0 -> -1 => P0
-#           = 2 => P1
-# 1 -> 1          = 1 / 2 = 0.5 => P2
+# 0 -> -1 (P0)
+#           = 2 (P1)
+# 1 -> 1          = 1 / 2 = 0.5 (P2)
 #           = 3
 # 2 -> 4
-# [(0, -1), (1, 1)]
 # P(x) = P0 + P1(x - x0) + P2(x - x0)(x - x1)

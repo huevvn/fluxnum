@@ -37,7 +37,7 @@ def get_interpolation_method():
 
 def get_interpolation_degree():
     """ Ask the user to select the degree of interpolation """
-    degree_map = {"Linear": 1, "Quadratic": 2, "Bicubic": 3}
+    degree_map = {"Linear": 1, "Quadratic": 2, "Cubic": 3}
     degree_str = questionary.select(
         "Choose the Interpolation degree:",
         qmark="❯",

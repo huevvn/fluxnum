@@ -1,81 +1,94 @@
-# FluxNum ⚡️
+# Fluxnum ⚡️
 
-FluxNum is a numerical analysis tool for interpolation, supporting Newton and Lagrange methods.
+A clean numerical analysis solver for Students, simple as that !
 
-## ✨ Features
+## 🎯 Features
 
--   Newton Interpolation
--   Lagrange Interpolation
--   Quadratic Interpolation Support
--   Command-line interface (CLI) for easy interaction
+### Core Methods
 
-## 🔧 Installation
+-   **Lagrange Interpolation**
+-   **Newton Interpolation**
+-   **Least Squares Regression**
 
-1. Clone the repository:
+### DSA Optimizations Applied
 
-    ```sh
-    git clone https://github.com/yourusername/fluxnum.git
-    cd fluxnum
-    ```
+1. **Simple Hashing** - Cache basis polynomials for repeated calculations
+2. **Dynamic Programming** - Store divided difference tables to avoid recomputation
+3. **Simple Heaps** - Track worst residuals in regression analysis
 
-2. Create a virtual environment and activate it:
+## 🚀 Quick Start
 
-    ```sh
-    python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
-    ```
+```bash
+# Install dependencies
+pip install -r requirements.txt
 
-3. Install dependencies:
-    ```sh
-    pip install -r requirements.txt
-    ```
-
-## ⚙️ Running & Interacting
-
-Run the application:
-
-```sh
+# Run the application
 python src/run.py
+
+# Run benchmarks
+python src/benchmark.py
 ```
 
-```sh
-╭───────────────────────╮
-│ Welcome to FluxNum ⚡️ │
-╰───────────────────────╯
-❯ Choose a Method: Interpolation
-❯ Choose an interpolation method: Newton
+## 📊 Performance Comparison
 
-💡 Using Newton method ℕ
+**Test Setup:** 10 data points, 9 evaluation points, 50 iterations each method
 
-❯ Choose the Interpolation degree: Linear
-🎯 Linear Interpolation
+Results from actual benchmark (`python src/benchmark.py`):
 
-📌 Enter Point 1
-❯ Enter x1: 0
-❯ Enter f(0.0): 1
-📌 Enter Point 2
-❯ Enter x2: 2
-❯ Enter f(2.0): 3
+| Method     | Basic Time | DSA Time | Speedup | DSA Technique       |
+| ---------- | ---------- | -------- | ------- | ------------------- |
+| Lagrange   | 0.005s     | 0.002s   | 2.6x    | Hash caching        |
+| Newton     | 0.003s     | 0.001s   | 4.0x    | DP table storage    |
+| Regression | 0.007s     | 0.010s   | 0.7x\*  | Heap error tracking |
 
-≈ Approximation Input
-❯ Enter the x value to approximate: 0.765
+\*Regression is slower due to heap overhead, but provides error analysis
 
-🚀 Computing Interpolation...
-⏳ Processing... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:02
+**How tested:**
 
-╭──────────────── FluxNum Results ─────────────────╮
-│                                                  │
-│ 📊 Calculation Summary                           │
-│ ✔ Method: Newton Interpolation                   │
-│ ✔ Degree: 1                                      │
-│ ✔ Points: [(0.0, 1.0), (2.0, 3.0)]               │
-│ ✔ Approximation: f(0.765) =  1.7650000000000001  │
-│                                                  │
-╰──────────────────────────────────────────────────╯
+-   50 repeated runs of each algorithm for statistical accuracy
+-   Same polynomial data: f(x) = x² + 2x + 1 with 10 points
+-   Evaluation at 9 intermediate points (x + 0.5)
+-   Measures pure computation time, not I/O or setup
+
+## 🛠 Usage Examples
+
+### Interpolation
+
+```python
+from interpolation.lagrange import lagrange_interpolation, lagrange_with_hashing
+
+points = [(1, 2), (2, 5), (3, 10)]
+x = 2.5
+
+# Basic version
+result1 = lagrange_interpolation(points, x)
+
+# DSA optimized version
+result2 = lagrange_with_hashing(points, x)
 ```
 
-## 📚 Documentation
+### Regression
 
--   📄 [Newton Interpolation](docs/newton_interpolation.md)
--   📄 [Lagrange Interpolation](docs/lagrange_interpolation.md)
--   📄 [Interpolation Comparison](docs/interpolation_comparison.md)
+```python
+from interpolation.regression import least_squares_basic, least_squares_with_heap
+
+points = [(1, 2), (2, 4), (3, 5), (4, 8)]
+
+# Basic linear regression
+slope, intercept = least_squares_basic(points)
+
+# With heap tracking of worst errors
+slope, intercept, errors = least_squares_with_heap(points)
+```
+
+## 📁 Code Structure
+
+```
+src/
+├── run.py                 # Main application
+├── benchmark.py           # Performance comparison
+└── interpolation/
+    ├── lagrange.py       # Lagrange with hashing
+    ├── newton.py         # Newton with DP
+    └── regression.py     # Least squares with heap
+```

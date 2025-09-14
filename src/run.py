@@ -5,7 +5,7 @@ from rich.panel import Panel
 
 from interpolation.lagrange import lagrange_interpolation, lagrange_with_hashing
 from interpolation.newton import newton_interpolation, newton_with_dp
-from interpolation.regression import least_squares_basic, least_squares_with_heap, predict_linear
+from regression import least_squares_basic, least_squares_with_heap, predict_linear
 
 console = Console()
 

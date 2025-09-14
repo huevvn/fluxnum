@@ -1,0 +1,118 @@
+# 📌 Least Squares Regression
+
+## 🔹 Overview
+
+Least squares regression finds the **best-fit line** through a set of data points by minimizing the sum of squared errors. Unlike interpolation, regression doesn't pass through every point but finds the **optimal linear trend**.
+
+## 🎯 When to Use?
+
+-   **Noisy data** where you want to find the underlying trend.
+-   When you need **predictive modeling** rather than exact interpolation.
+-   **Large datasets** where a simple linear model is sufficient.
+
+## ⚡ Advantages
+
+✔ **Robust to noise** - doesn't overfit to individual points.  
+✔ **Predictive power** - can estimate values outside the data range.  
+✔ **Simple interpretation** - clear slope and intercept meaning.
+
+## 📖 Formula
+
+Linear regression model:
+
+```
+y = slope * x + intercept
+```
+
+**Normal equations** for least squares:
+
+```
+slope = (n * Σ(xy) - Σ(x) * Σ(y)) / (n * Σ(x²) - (Σ(x))²)
+intercept = (Σ(y) - slope * Σ(x)) / n
+```
+
+Where:
+
+-   `n` = number of data points
+-   `Σ(xy)` = sum of x\*y products
+-   `Σ(x²)` = sum of x squared values
+
+## 🚀 DSA Optimizations
+
+### 📊 Basic Version
+
+```python
+def least_squares_basic(points):
+    # Calculate sums
+    sum_x = sum(p[0] for p in points)
+    sum_y = sum(p[1] for p in points)
+    sum_xy = sum(p[0] * p[1] for p in points)
+    sum_x2 = sum(p[0] ** 2 for p in points)
+
+    # Apply normal equations
+    slope = (n * sum_xy - sum_x * sum_y) / (n * sum_x2 - sum_x ** 2)
+    intercept = (sum_y - slope * sum_x) / n
+
+    return slope, intercept
+```
+
+### 🔥 Heap-Optimized Version
+
+```python
+def least_squares_with_heap(points):
+    slope, intercept = least_squares_basic(points)
+
+    # Track top-K worst errors efficiently
+    worst_errors = []  # Min heap
+    for x, y in points:
+        error = abs(y - (slope * x + intercept))
+        if len(worst_errors) < k:
+            heapq.heappush(worst_errors, error)
+        elif error > worst_errors[0]:
+            heapq.heapreplace(worst_errors, error)
+
+    return slope, intercept, sorted(worst_errors, reverse=True)
+```
+
+## 📈 Performance Benefits
+
+| Method    | Complexity | Use Case          |
+| --------- | ---------- | ----------------- |
+| Basic     | O(n)       | Simple regression |
+| With Heap | O(n log k) | Outlier detection |
+
+**Heap advantage**: Finding top-K worst errors without sorting all residuals.
+
+## 🎯 Practical Applications
+
+1. **Data Quality**: Identify outliers for data cleaning
+2. **Model Validation**: Track prediction errors
+3. **Trend Analysis**: Find underlying patterns in noisy data
+4. **Forecasting**: Predict future values based on linear trends
+
+## 🔧 Example Usage
+
+```python
+# Sample data with noise
+points = [(1, 2.1), (2, 4.2), (3, 5.9), (4, 8.1)]
+
+# Basic regression
+slope, intercept = least_squares_basic(points)
+print(f"Model: y = {slope:.3f}x + {intercept:.3f}")
+
+# With outlier detection
+slope, intercept, errors = least_squares_with_heap(points)
+print(f"Worst errors: {errors}")
+
+# Make predictions
+prediction = slope * 5 + intercept  # Predict y when x=5
+```
+
+## 🔍 Key Differences from Interpolation
+
+| Aspect          | Interpolation           | Regression           |
+| --------------- | ----------------------- | -------------------- |
+| **Goal**        | Pass through all points | Find best trend line |
+| **Noise**       | Sensitive to outliers   | Robust to noise      |
+| **Overfitting** | Can overfit             | Generalizes better   |
+| **Use Case**    | Exact reconstruction    | Pattern discovery    |

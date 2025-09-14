@@ -80,4 +80,3 @@ slope, intercept = least_squares_basic(points)
 # With heap tracking of worst errors
 slope, intercept, errors = least_squares_with_heap(points)
 ```
-```

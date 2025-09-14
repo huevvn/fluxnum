@@ -80,15 +80,4 @@ slope, intercept = least_squares_basic(points)
 # With heap tracking of worst errors
 slope, intercept, errors = least_squares_with_heap(points)
 ```
-
-## 📁 Code Structure
-
-```
-src/
-├── run.py                 # Main application
-├── benchmark.py           # Performance comparison
-└── interpolation/
-    ├── lagrange.py       # Lagrange with hashing
-    ├── newton.py         # Newton with DP
-    └── regression.py     # Least squares with heap
 ```

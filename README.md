@@ -1,6 +1,6 @@
 # Fluxnum ⚡️
 
-A clean numerical analysis solver for Students, simple as that !
+A Clean Optimized Numerical Analysis Library - Python
 
 ## 🎯 Features
 
@@ -35,7 +35,7 @@ python src/benchmark.py
 
 Results from actual benchmark (`python src/benchmark.py`):
 
-| Method     | Basic Time | DSA Time | Speedup | DSA Technique       |
+| Method     | Basic Time | DSA Time | Speedup | Technique           |
 | ---------- | ---------- | -------- | ------- | ------------------- |
 | Lagrange   | 0.005s     | 0.002s   | 2.6x    | Hash caching        |
 | Newton     | 0.003s     | 0.001s   | 4.0x    | DP table storage    |

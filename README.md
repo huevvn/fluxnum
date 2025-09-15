@@ -29,6 +29,20 @@ python src/run.py
 python src/benchmark.py
 ```
 
+## 🎬 Live Demos
+
+See the comparison features in action! Both demos show the interactive comparison between basic and DSA-optimized implementations:
+
+### Interpolation Comparison Demo
+
+![Interpolation Demo](assets/interpolation-demo.gif)
+_Compare Lagrange and Newton interpolation methods with hash caching and dynamic programming optimizations_
+
+### Regression Comparison Demo
+
+![Regression Demo](assets/regression-demo.gif)
+_Compare basic least squares with heap-optimized error tracking for regression analysis_
+
 ## 📊 Performance Comparison
 
 **Test Setup:** 10 data points, 9 evaluation points, 50 iterations each method

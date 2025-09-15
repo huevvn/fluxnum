@@ -36,12 +36,10 @@ See the comparison features in action! Both demos show the interactive compariso
 ### Interpolation Comparison Demo
 
 ![Interpolation Demo](assets/interpolation-demo.gif)
-_Compare Lagrange and Newton interpolation methods with hash caching and dynamic programming optimizations_
 
 ### Regression Comparison Demo
 
 ![Regression Demo](assets/regression-demo.gif)
-_Compare basic least squares with heap-optimized error tracking for regression analysis_
 
 ## 📊 Performance Comparison
 
